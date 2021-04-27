@@ -256,9 +256,9 @@ def main_menu():
     while debut:
         BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")),(config.LARGEUR, config.HAUTEUR))
         config.fenetre.blit(BG, (0, 0))
-        label_commencer = title_font.render("Cliquez ici pour commencer...", 1, (255,255,255))
+        ##label_commencer = title_font.render("Cliquez ici pour commencer...", 1, (255,255,255))
         config.fenetre.blit(config.LOGO, (config.LARGEUR/2 - config.LOGO.get_width()/2, config.HAUTEUR/2 - config.LOGO.get_height()*1.15))
-        config.fenetre.blit(label_commencer, (config.LARGEUR/2 - label_commencer.get_width()/2, config.HAUTEUR/2 + label_commencer.get_height()))
+        ##config.fenetre.blit(label_commencer, (config.LARGEUR/2 - label_commencer.get_width()/2, config.HAUTEUR/2 + label_commencer.get_height()))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
