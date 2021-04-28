@@ -205,7 +205,6 @@ def main():
         joueur.draw(config.fenetre)
 
         if lost:
-            print(getpass.getuser())
             label_go = lost_font.render("Game Over !", 1, (255, 255, 255))
             config.fenetre.blit(label_go, (
             config.LARGEUR / 2 - label_go.get_width() / 2, config.HAUTEUR / 2 - label_go.get_height()))
