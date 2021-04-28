@@ -210,6 +210,7 @@ def main():
             if lost_count == 1:
                 mydb = db.BDD()
                 mydb.savePlayerScore(getpass.getuser(), niveau)
+                sound.GlobalMusic.stopmusic()
             label_go = lost_font.render("Game Over !", 1, (255, 255, 255))
             config.fenetre.blit(label_go, (
             config.LARGEUR / 2 - label_go.get_width() / 2, config.HAUTEUR / 2 - label_go.get_height()))
@@ -229,6 +230,7 @@ def main():
 
         if lost:
             if lost_count > FPS * 3:
+                sound.GlobalMusic.playmusicmenu()
                 debut = False
             else:
                 continue

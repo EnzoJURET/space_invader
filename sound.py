@@ -19,6 +19,10 @@ class GlobalMusic:
         pygame.mixer.music.set_volume(0.03)
         pygame.mixer.music.play(loops=-1)
 
+    @staticmethod
+    def stopmusic():
+        pygame.mixer.music.stop()
+
 
 class PlayerSound:
 
