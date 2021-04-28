@@ -170,10 +170,8 @@ def main():
             if i >= 1:
                 config.fenetre.blit(coeur_image, ((coeur_image.get_width()+5)*i, 10))
 
-        #label_vies = main_font.render(f"Vies : {vies}", 1, (255,255,255))
         label_niveaux = main_font.render(f"Niveau : {niveau}", 1, (255,255,255))
 
-        #config.fenetre.blit(label_vies, (10, 10))
         config.fenetre.blit(label_niveaux, (config.LARGEUR - label_niveaux.get_width() - 10, 10))
 
         for enemie in enemies:
@@ -255,10 +253,12 @@ def main_menu():
     debut = True
     while debut:
         BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")),(config.LARGEUR, config.HAUTEUR))
+        METEORITE = pygame.transform.scale(pygame.image.load(os.path.join("assets", "meteorite.png")), (100, 100))
         LOGO = pygame.transform.scale(pygame.image.load(os.path.join("assets", "SpaceInvadersLogo.png")),(540, 215))
         TUTO = pygame.transform.scale(pygame.image.load(os.path.join("assets", "tuto.png")), (412, 235))
         config.fenetre.blit(BG, (0, 0))
         label_commencer = title_font.render("Cliquez pour commencer...", 1, (255,255,255))
+        config.fenetre.blit(METEORITE, (config.LARGEUR - METEORITE.get_width() - 30, 35))
         config.fenetre.blit(LOGO, (config.LARGEUR/2 - LOGO.get_width()/2, 30))
         config.fenetre.blit(TUTO, (config.LARGEUR / 2 - TUTO.get_width() / 2, TUTO.get_height()+50))
         config.fenetre.blit(label_commencer, (config.LARGEUR/2 - label_commencer.get_width()/2, config.HAUTEUR/2 + label_commencer.get_height()))
