@@ -22,3 +22,5 @@ RED_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_red.png"))
 GREEN_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_green.png"))
 BLUE_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_blue.png"))
 PLAYER_LASER_LEVEL1 = pygame.image.load(os.path.join("assets", "pixel_laser_yellow.png"))
+
+LOGO = pygame.image.load(os.path.join("assets", "SpaceInvadersLogo.png"))
