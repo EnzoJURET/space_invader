@@ -17,5 +17,5 @@ class BDD:
         self.db.commit()
 
     def getLeaderBoard(self):
-        self.cursor.execute("SELECT nickname, max(score) FROM Scores GROUP BY nickname")
+        self.cursor.execute("SELECT nickname, max(score) FROM Scores GROUP BY nickname ORDER BY max(score) DESC")
         return self.cursor.fetchall()
