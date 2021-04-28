@@ -20,6 +20,8 @@ enemie_vel = 3
 laser_vel = 10
 pauseEvent = pygame.USEREVENT + 1
 
+alreadyloose = 0
+
 playersoundmanager = sound.PlayerSound()
 
 
@@ -205,6 +207,9 @@ def main():
         joueur.draw(config.fenetre)
 
         if lost:
+            if lost_count == 1:
+                mydb = db.BDD()
+                mydb.savePlayerScore(getpass.getuser(), niveau)
             label_go = lost_font.render("Game Over !", 1, (255, 255, 255))
             config.fenetre.blit(label_go, (
             config.LARGEUR / 2 - label_go.get_width() / 2, config.HAUTEUR / 2 - label_go.get_height()))
@@ -319,8 +324,9 @@ def afficherScore():
                                                config.HAUTEUR / 2 + labelleaderboard.get_height() / 2 + spacing))
         spacing += labelleaderboard.get_height() + 20
         nbscoretoprint -= 1
-
         pygame.display.update()
+
+    pygame.display.update()
     while debut:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
