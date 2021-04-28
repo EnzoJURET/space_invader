@@ -9,15 +9,15 @@ class GlobalMusic:
     def playmusicmenu():
         pygame.mixer.init()
         pygame.mixer.music.load(os.path.abspath("assets/menu.mp3"))
-        pygame.mixer.music.set_volume(0.1)
+        pygame.mixer.music.set_volume(0.03)
         pygame.mixer.music.play()
 
     @staticmethod
     def playgeneric():
         pygame.mixer.init()
         pygame.mixer.music.load(os.path.abspath("assets/generique.mp3"))
-        pygame.mixer.music.set_volume(0.05)
-        pygame.mixer.music.play(0)
+        pygame.mixer.music.set_volume(0.03)
+        pygame.mixer.music.play(loops=-1)
 
 
 class PlayerSound:
@@ -28,3 +28,4 @@ class PlayerSound:
 
     def play(self):
         self.sound.play()
+        self.sound.set_volume(0.01)
