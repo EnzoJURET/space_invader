@@ -5,7 +5,7 @@ class BDD:
 
     def __init__(self):
         self.db = mysql.connector.connect(host="telougat.space", user="spaceinvaders", password="azerty/123",
-                                          database="spaceinvaders")
+                                          database="spaceinvaders", auth_plugin='mysql_native_password')
         self.cursor = self.db.cursor()
         self.cursor.execute(
             "CREATE TABLE IF NOT EXISTS Scores (nickname VARCHAR(255) NOT NULL, score INTEGER NOT NULL)")
