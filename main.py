@@ -3,6 +3,7 @@ import os
 import time
 import random
 import config
+import sound
 pygame.font.init()
 
 # Global values
@@ -13,6 +14,9 @@ vies = 5
 wave_length = 5
 enemie_vel = 3
 laser_vel = 10
+pauseEvent = pygame.USEREVENT + 1
+
+playersoundmanager = sound.PlayerSound()
 
 class Laser:
     def __init__(self, x, y, img):
@@ -68,6 +72,7 @@ class Vaisseau:
 
     def tirer(self):
         if self.compteur_tmp_recharge == 0:
+            playersoundmanager.play()
             laser = Laser(self.x, self.y, self.laser_img)
             self.lasers.append(laser)
             self.compteur_tmp_recharge = 1
@@ -136,7 +141,16 @@ def collision(obj1, obj2):
     offset_y = obj2.y - obj1.y
     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
 
+def afficherMessageSucces(niveau):
+
+    message = pygame.font.SysFont("comicsans", 30)
+    label = message.render(f"Félicitation, niveau {niveau} atteint !", 1, (255,255,255))
+    config.fenetre.blit(label, (config.LARGEUR / 2 - label.get_width() / 2, config.HAUTEUR / 2 + label.get_height()))
+    pygame.display.update()
+
 def main():
+    sound.GlobalMusic.playgeneric()
+    paused = False
     debut = True
 
     FPS = 60
@@ -186,6 +200,9 @@ def main():
         pygame.display.update()
 
     while debut:
+        if paused and niveau > 1:
+            afficherMessageSucces(niveau)
+
         clock.tick(FPS)
         redraw_window()
 
@@ -201,6 +218,8 @@ def main():
 
         if len(enemies) == 0:
             niveau += 1
+            paused = True
+            pygame.time.set_timer(pauseEvent, 5000)
             if niveau == 5:
                 del joueur
                 joueur = Joueur(300, 630, 100, config.LEVEL2)
@@ -219,6 +238,9 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+            if event.type == pauseEvent:
+                pygame.time.set_timer(pauseEvent, 0)
+                paused = False
 
         keys = pygame.key.get_pressed()
         if (keys[pygame.K_q] or keys[pygame.K_LEFT]) and joueur.x - joueur_vel > 0: # left
@@ -249,6 +271,8 @@ def main():
         joueur.mvt_laser(-laser_vel, enemies)
 
 def main_menu():
+    pygame.init()
+    sound.GlobalMusic.playmusicmenu()
     title_font = pygame.font.SysFont("comicsans", 40)
     debut = True
     while debut:
