@@ -17,5 +17,5 @@ class BDD:
         self.db.commit()
 
     def getLeaderBoard(self):
-        self.cursor.execute("SELECT * FROM Scores ORDER BY score DESC")
+        self.cursor.execute("SELECT DISTINCT nickname, score FROM Scores ORDER BY score DESC")
         return self.cursor.fetchall()
