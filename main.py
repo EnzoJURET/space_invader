@@ -231,7 +231,7 @@ def main():
             joueur.y -= joueur_vel
         if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and joueur.y + joueur_vel + joueur.get_height() + 15 < config.HAUTEUR: # down
             joueur.y += joueur_vel
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] or keys[pygame.MOUSEBUTTONDOWN]:
             joueur.tirer()
 
         for enemie in enemies[:]:
@@ -255,9 +255,12 @@ def main_menu():
     debut = True
     while debut:
         BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")),(config.LARGEUR, config.HAUTEUR))
+        LOGO = pygame.transform.scale(pygame.image.load(os.path.join("assets", "SpaceInvadersLogo.png")),(540, 215))
+        TUTO = pygame.transform.scale(pygame.image.load(os.path.join("assets", "tuto.png")), (412, 235))
         config.fenetre.blit(BG, (0, 0))
-        label_commencer = title_font.render("Cliquez ici pour commencer...", 1, (255,255,255))
-        config.fenetre.blit(config.LOGO, (config.LARGEUR/2 - config.LOGO.get_width()/2, config.HAUTEUR/2 - config.LOGO.get_height()*1.15))
+        label_commencer = title_font.render("Cliquez pour commencer...", 1, (255,255,255))
+        config.fenetre.blit(LOGO, (config.LARGEUR/2 - LOGO.get_width()/2, 30))
+        config.fenetre.blit(TUTO, (config.LARGEUR / 2 - TUTO.get_width() / 2, TUTO.get_height()+50))
         config.fenetre.blit(label_commencer, (config.LARGEUR/2 - label_commencer.get_width()/2, config.HAUTEUR/2 + label_commencer.get_height()))
         pygame.display.update()
         for event in pygame.event.get():
