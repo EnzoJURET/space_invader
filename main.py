@@ -11,7 +11,7 @@ FPS = 60
 niveau = 0
 vies = 5
 wave_length = 5
-enemie_vel = 1
+enemie_vel = 3
 laser_vel = 10
 
 class Laser:
@@ -35,7 +35,7 @@ class Laser:
 
 
 class Vaisseau:
-    TEMPS_RECHARGE = 15
+    TEMPS_RECHARGE = 8
     def __init__(self, x, y, vie=100):
         self.x = x
         self.y = y
@@ -143,7 +143,7 @@ def main():
     niveau = 0
     vies = 5
     wave_length = 5
-    enemie_vel = 3
+    enemie_vel = 4
     joueur_vel = 8
     laser_vel = 7
 
@@ -256,9 +256,9 @@ def main_menu():
     while debut:
         BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")),(config.LARGEUR, config.HAUTEUR))
         config.fenetre.blit(BG, (0, 0))
-        ##label_commencer = title_font.render("Cliquez ici pour commencer...", 1, (255,255,255))
+        label_commencer = title_font.render("Cliquez ici pour commencer...", 1, (255,255,255))
         config.fenetre.blit(config.LOGO, (config.LARGEUR/2 - config.LOGO.get_width()/2, config.HAUTEUR/2 - config.LOGO.get_height()*1.15))
-        ##config.fenetre.blit(label_commencer, (config.LARGEUR/2 - label_commencer.get_width()/2, config.HAUTEUR/2 + label_commencer.get_height()))
+        config.fenetre.blit(label_commencer, (config.LARGEUR/2 - label_commencer.get_width()/2, config.HAUTEUR/2 + label_commencer.get_height()))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
