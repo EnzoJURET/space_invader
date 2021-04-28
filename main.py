@@ -10,8 +10,7 @@ import getpass
 pygame.font.init()
 
 # Global values
-BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")),
-                            (config.LARGEUR, config.HAUTEUR))
+BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")),(config.LARGEUR, config.HAUTEUR))
 FPS = 60
 niveau = 0
 vies = 5
@@ -19,11 +18,9 @@ wave_length = 5
 enemie_vel = 3
 laser_vel = 10
 pauseEvent = pygame.USEREVENT + 1
-
 alreadyloose = 0
-
 playersoundmanager = sound.PlayerSound()
-
+TEMPS_RECHARGE = 8
 
 class Laser:
     def __init__(self, x, y, img):
@@ -46,7 +43,7 @@ class Laser:
 
 
 class Vaisseau:
-    TEMPS_RECHARGE = 8
+    TEMPS_RECHARGE = 7
 
     def __init__(self, x, y, vie=100):
         self.x = x
@@ -242,16 +239,20 @@ def main():
                 pygame.time.set_timer(pauseEvent, 5000)
                 del joueur
                 joueur = Joueur(300, 630, 100, config.LEVEL2)
-            elif niveau == 10:
+                joueur_vel = 10
+                print(joueur_vel)
+            elif niveau == 11:
                 paused = True
                 pygame.time.set_timer(pauseEvent, 5000)
                 del joueur
                 joueur = Joueur(300, 630, 100, config.LEVEL3)
+                joueur_vel = 12
             elif niveau == 20:
                 paused = True
                 pygame.time.set_timer(pauseEvent, 5000)
                 del joueur
                 joueur = Joueur(300, 630, 100, config.LEVEL4)
+                joueur_vel = 13
 
             wave_length += 5
             for i in range(wave_length):
@@ -356,9 +357,13 @@ def main_menu():
     title_font = pygame.font.SysFont("comicsans", 40)
     debut = True
     y = 35
+    x_m2 = 0
+    y_m2 = 0
     backTo = False
     METEORITE = pygame.transform.scale(pygame.image.load(os.path.join("assets", "meteorite.png")), (100, 100))
+    METEORITE2 = pygame.transform.scale(pygame.image.load(os.path.join("assets", "meteorite2.png")), (35, 27))
     while debut:
+
         if (y == METEORITE.get_width()):
             backTo = True
         elif (y == 35):
@@ -368,17 +373,22 @@ def main_menu():
             y -= 0.5
         else:
             y += 0.5
-        BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")),
-                                    (config.LARGEUR, config.HAUTEUR))
+
+        x_m2 += 60
+        y_m2 += 60
+
+
+        BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")),(config.LARGEUR, config.HAUTEUR))
         LOGO = pygame.transform.scale(pygame.image.load(os.path.join("assets", "SpaceInvadersLogo.png")), (540, 215))
-        SCORE = pygame.transform.scale(pygame.image.load(os.path.join("assets", "trophee.png")), (87, 102))
-        TUTO = pygame.transform.scale(pygame.image.load(os.path.join("assets", "tuto.png")), (412, 235))
+        SCORE = pygame.transform.scale(pygame.image.load(os.path.join("assets", "trophee.png")), (58, 68))
+        TUTO = pygame.transform.scale(pygame.image.load(os.path.join("assets", "tuto.png")), (412, 230))
         config.fenetre.blit(BG, (0, 0))
         label_commencer = title_font.render("Cliquez pour commencer...", 1, (255, 255, 255))
         config.fenetre.blit(METEORITE, (config.LARGEUR - METEORITE.get_width() - 30, y))
+        config.fenetre.blit(METEORITE2, (x_m2,y_m2))
         config.fenetre.blit(LOGO, (config.LARGEUR / 2 - LOGO.get_width() / 2, 30))
-        config.fenetre.blit(SCORE,
-                            (config.LARGEUR / 2 - SCORE.get_width() / 2, config.HAUTEUR - SCORE.get_height() - 40))
+        #config.fenetre.blit(SCORE,(config.LARGEUR / 2 - SCORE.get_width() / 2, config.HAUTEUR - SCORE.get_height() - 40))
+        config.fenetre.blit(SCORE,(40, 40))
         config.fenetre.blit(TUTO, (config.LARGEUR / 2 - TUTO.get_width() / 2, TUTO.get_height() + 50))
         config.fenetre.blit(label_commencer, (
         config.LARGEUR / 2 - label_commencer.get_width() / 2, config.HAUTEUR / 2 + label_commencer.get_height()))
@@ -391,8 +401,8 @@ def main_menu():
             if event.type == pygame.QUIT:
                 debut = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event_bouton(x_mouse, y_mouse, score_rect, config.LARGEUR / 2 - SCORE.get_width() / 2,
-                                config.HAUTEUR - SCORE.get_height() - 40):
+                #if event_bouton(x_mouse, y_mouse, score_rect, config.LARGEUR / 2 - SCORE.get_width() / 2,config.HAUTEUR - SCORE.get_height() - 40):
+                if event_bouton(x_mouse, y_mouse, score_rect, 40, 40):
                     afficherScore()
                 else:
                     main()
